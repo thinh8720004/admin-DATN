@@ -3,6 +3,8 @@ import { lazy } from "react";
 // use lazy for better code splitting
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const Products = lazy(() => import("@/pages/Products"));
+const Reviews = lazy(() => import("@/pages/Reviews"));
+
 const ProductDetails = lazy(() => import("@/pages/ProductDetails"));
 const Category = lazy(() => import("@/pages/Category"));
 const ChildCategory = lazy(() => import("@/pages/ChildCategory"));
@@ -26,6 +28,10 @@ const routes = [
   {
     path: "/products",
     component: Products,
+  },
+  {
+    path: "/reviews",
+    component: Reviews,
   },
   {
     path: "/product/:id",

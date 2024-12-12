@@ -13,11 +13,14 @@ import CouponServices from "@/services/CouponServices";
 import CurrencyServices from "@/services/CurrencyServices";
 import CustomerServices from "@/services/CustomerServices";
 import ProductServices from "@/services/ProductServices";
+import ReviewServices from "@/services/ReviewServices";
 import SupplierServices from "@/services/SupplierServices"; // Import SupplierServices
 import { notifyError, notifySuccess } from "@/utils/toast";
 
 const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
   console.log(title);
+  console.log(id);
+
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
   const { setServiceId } = useToggleDrawer();
   const location = useLocation();
@@ -37,6 +40,25 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
           setIsSubmitting(false);
         } else {
           const res = await ProductServices.deleteProduct(id);
+          setIsUpdate(true);
+          notifySuccess(res.message);
+          setServiceId();
+          closeModal();
+          setIsSubmitting(false);
+        }
+      }
+
+      if (location.pathname === "/reviews") {
+        if (ids) {
+          const res = await ReviewServices.deleteManyReview({ ids });
+          setIsUpdate(true);
+          notifySuccess(res.message);
+          setIsCheck([]);
+          setServiceId();
+          closeModal();
+          setIsSubmitting(false);
+        } else {
+          const res = await ReviewServices.deleteReview(id);
           setIsUpdate(true);
           notifySuccess(res.message);
           setServiceId();

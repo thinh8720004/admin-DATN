@@ -99,7 +99,7 @@ const Login = () => {
                     <span className="ml-2">{"Đăng nhập với Google"}</span>
                   </button>
                 </form>
-
+{/* 
                 <p className="mt-4">
                   <Link
                     className="text-sm font-medium text-emerald-500 dark:text-emerald-400 hover:underline"
@@ -115,7 +115,7 @@ const Login = () => {
                   >
                     {"Tạo tài khoản"}
                   </Link>
-                </p>
+                </p> */}
               </div>
             </main>
           </div>

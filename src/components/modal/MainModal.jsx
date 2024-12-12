@@ -8,6 +8,8 @@ import CustomerServices from "@/services/CustomerServices";
 import AdminServices from "@/services/AdminServices";
 import CouponServices from "@/services/CouponServices";
 import ProductServices from "@/services/ProductServices";
+// import ProductServices from "@/services/ProductServices";
+import ReviewServices from "@/services/ReviewServices";
 import CategoryServices from "@/services/CategoryServices";
 import { SidebarContext } from "@/context/SidebarContext";
 import { notifySuccess, notifyError } from "@/utils/toast";
@@ -21,6 +23,17 @@ const MainModal = ({ id, title }) => {
   const handleDelete = () => {
     if (location.pathname === "/products") {
       ProductServices.deleteProduct(id)
+        .then((res) => {
+          setIsUpdate(true);
+          notifySuccess(res.message);
+        })
+        .catch((err) => notifyError(err.message));
+      closeModal();
+      setServiceId();
+    }
+
+    if (location.pathname === "/reviews") {
+      ReviewServices.deleteReview(id)
         .then((res) => {
           setIsUpdate(true);
           notifySuccess(res.message);

@@ -52,6 +52,11 @@ const sidebar = [
     icon: FiCompass,
     name: "Đơn hàng",
   },
+  {
+    path: "/reviews",
+    icon: FiCompass,
+    name: "Bình luận",
+  },
 
    
 ];

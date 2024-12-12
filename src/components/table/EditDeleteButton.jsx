@@ -11,7 +11,8 @@ const EditDeleteButton = ({
   product,
   parent,
   children,
-  isSupplier, // New prop to check if it's a supplier
+  isSupplier,
+  review// New prop to check if it's a supplier
 }) => {
   return (
     <div className="flex justify-end text-right">
@@ -62,7 +63,7 @@ const EditDeleteButton = ({
       {/* Delete button */}
       <button
         disabled={isCheck?.length > 0}
-        onClick={() => handleModalOpen(id, title, product)}
+        onClick={() => handleModalOpen(id, title, product,review)}
         className="p-2 cursor-pointer text-gray-400 hover:text-red-600 focus:outline-none"
       >
         <Tooltip
