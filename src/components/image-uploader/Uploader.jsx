@@ -22,9 +22,9 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
   // console.log("data", data);
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
-    // accept: {
-    //   'image/*': ['.jpeg', '.jpg', '.png', '.webp', 'gif', 'mp4', 'zip', 'glb'],
-    // },
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png', '.webp', '.gif'], // Chỉ chấp nhận file hình ảnh
+    },
     multiple: product ? true : false,
     maxSize: 5000000000,
     maxFiles: globalSetting?.number_of_image_per_product || 2,
@@ -37,7 +37,14 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
         )
       );
     },
+    onDropRejected: (rejectedFiles) => {
+      // Hiển thị lỗi khi file không được chấp nhận
+      rejectedFiles.forEach((file) => {
+        alert(`File "${file.file.name}" không hợp lệ. Vui lòng chọn file hình ảnh.`);
+      });
+    },
   });
+  
 
   useEffect(() => {
     if (fileRejections) {

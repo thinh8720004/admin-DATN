@@ -95,6 +95,7 @@ const SupplierTable = ({
                   handleUpdate={handleUpdate}
                   handleModalOpen={handleModalOpen}
                   title={name}
+                  isShow={false}
                 />
               </TableCell>
             </TableRow>

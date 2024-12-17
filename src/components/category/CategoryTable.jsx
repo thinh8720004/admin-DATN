@@ -130,6 +130,7 @@ const CategoryTable = ({
                 handleUpdate={handleUpdate}
                 handleModalOpen={handleModalOpen}
                 title={category?.name}
+                isShow={false}
               />
             </TableCell>
           </TableRow>

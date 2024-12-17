@@ -62,8 +62,6 @@ const Products = () => {
       price: sortedField,
     })
   );
-  console.log(data.products);
-  console.log(category);
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
@@ -150,7 +148,7 @@ const Products = () => {
                   <span className="mr-2">
                     <FiPlus />
                   </span>
-                  {"Thêm sản phẩm"}
+                  {"Thêm sản phẩm "}
                 </Button>
               </div>
             </div>
@@ -237,6 +235,7 @@ const Products = () => {
                 <TableCell>{"Thể loại"}</TableCell>
                 <TableCell>{"Giá"}</TableCell>
                 <TableCell>Mô Tả</TableCell>
+                <TableCell>{"Ngày hết hạn"}</TableCell>
                 <TableCell>Số lượng</TableCell>
 
                 <TableCell className="text-right">{"Hành động"}</TableCell>

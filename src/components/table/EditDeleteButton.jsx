@@ -12,7 +12,8 @@ const EditDeleteButton = ({
   parent,
   children,
   isSupplier,
-  review// New prop to check if it's a supplier
+  review,// New prop to check if it's a supplier,
+  isShow = true
 }) => {
   return (
     <div className="flex justify-end text-right">
@@ -61,7 +62,7 @@ const EditDeleteButton = ({
       )}
 
       {/* Delete button */}
-      <button
+      {isShow ? <button
         disabled={isCheck?.length > 0}
         onClick={() => handleModalOpen(id, title, product,review)}
         className="p-2 cursor-pointer text-gray-400 hover:text-red-600 focus:outline-none"
@@ -72,7 +73,8 @@ const EditDeleteButton = ({
           title={"Delete"}
           bgColor="#EF4444"
         />
-      </button>
+      </button> : '' }
+      
     </div>
   );
 };

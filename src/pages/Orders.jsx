@@ -144,7 +144,7 @@ const Orders = () => {
                   <option value="Status" defaultValue hidden>
                     {"Trạng thái"}
                   </option>
-                  <option value="Delivered">{"Delivered"}</option>
+                  <option value="Delivered" >{"Delivered"}</option>
                   <option value="Pending">{"Pending"}</option>
                   <option value="Processing">{"Processing"}</option>
                   <option value="Cancel">{"Cancel"}</option>

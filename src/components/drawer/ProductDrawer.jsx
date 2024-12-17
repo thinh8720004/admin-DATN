@@ -37,6 +37,7 @@ import useUtilsFunction from "@/hooks/useUtilsFunction";
 import SupplierServices from "@/services/SupplierServices";
 import useAsync from "@/hooks/useAsync";
 import { useState, useEffect } from "react";
+import DateInput from "../form/input/DateInput";
 
 const ProductDrawer = ({ id }) => {
   let {
@@ -48,6 +49,7 @@ const ProductDrawer = ({ id }) => {
     onSubmit,
     errors,
     slug,
+    dateExpried,
     openModal,
     attribue,
     setValues,
@@ -84,6 +86,7 @@ const ProductDrawer = ({ id }) => {
     handleSelectImage,
     handleSelectInlineImage,
     handleGenerateCombination,
+    setType
   } = useProductSubmit(id);
   const { data: allSuppliers } = useAsync(SupplierServices.getAllSuppliers);
   const [selectedSupplierData, setSelectedSupplierData] = useState(null);
@@ -91,9 +94,6 @@ const ProductDrawer = ({ id }) => {
   useEffect(() => {
     if (selectedSupplier) {
       setSelectedSupplierData(selectedSupplier); // Giả sử selectedSupplier là một mảng, lấy phần tử đầu tiên
-
-      console.log(selectedSupplier);
-      console.log(selectedSupplierData);
 
     }
   }, [selectedSupplier]);
@@ -105,11 +105,11 @@ const ProductDrawer = ({ id }) => {
   }, [allSuppliers]);
 
   const handleSupplierSelect = (selectedItem) => {
-    console.log(selectedItem);
-    console.log("selectedItem:", selectedItem);
-    console.log("selectedSupplier trước khi cập nhật:", prevSelected);
+    // console.log(selectedItem);
+    // console.log("selectedItem:", selectedItem);
+    // console.log("selectedSupplier trước khi cập nhật:", prevSelected);
     selectedSupplier = [selectedItem];
-    setSelectedSupplierData([selectedItem]); 
+    setSelectedSupplierData([selectedItem]);
     setSelectedSupplier([selectedItem]); // Cập nhật state khi người dùng chọn supplier
   };
 
@@ -141,14 +141,14 @@ const ProductDrawer = ({ id }) => {
             register={register}
             handleSelectLanguage={handleSelectLanguage}
             title={"Cập nhật sản phẩm"}
-            // description={"UpdateProductDescription"}
+          // description={"UpdateProductDescription"}
           />
         ) : (
           <Title
             register={register}
             handleSelectLanguage={handleSelectLanguage}
             title={"Thêm sản phẩm"}
-            // description={"AddProductDescription"}
+          // description={"AddProductDescription"}
           />
         )}
       </div>
@@ -235,9 +235,10 @@ const ProductDrawer = ({ id }) => {
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={"SKU"} />
                 <div className="col-span-8 sm:col-span-4">
-                  <InputArea
-                    register={register}
-                    required="false"
+                  <Input
+                    {...register(`sku`, {
+                      required: "Sku is required!",
+                    })}
                     label={"ProductSKU"}
                     name="sku"
                     type="text"
@@ -246,7 +247,25 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.sku} />
                 </div>
               </div>
+              <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+                <LabelArea label={"Đơn vị"} />
+                <div className="col-span-8 sm:col-span-4">
+                  <select name="type"  style={{color: "black"}}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    {...register("type", { required: false })}
 
+                  >
+                    <option value="" disabled>
+                      Chọn đơn vị
+                    </option>
+                    <option value="Lọ">Lọ</option>
+                    <option value="Chai">Chai</option>
+                    <option value="Thùng">Thùng</option>
+                    <option value="Hộp">Hộp</option>
+
+                  </select>
+                </div>
+              </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={"Mã vạch sản phẩm"} />
                 <div className="col-span-8 sm:col-span-4">
@@ -283,9 +302,9 @@ const ProductDrawer = ({ id }) => {
                     singleSelect={true}
                     ref={resetRefTwo}
                     hidePlaceholder={true}
-                    onKeyPressFn={function noRefCheck() {}}
-                    onRemove={function noRefCheck() {}}
-                    onSearch={function noRefCheck() {}}
+                    onKeyPressFn={function noRefCheck() { }}
+                    onRemove={function noRefCheck() { }}
+                    onSearch={function noRefCheck() { }}
                     onSelect={(v) => setDefaultCategory(v)}
                     selectedValues={defaultCategory}
                     options={selectedCategory}
@@ -308,9 +327,9 @@ const ProductDrawer = ({ id }) => {
                   />
                 </div>
               </div>
-
+              
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                <LabelArea label="Giá sản phẩm" />
+                <LabelArea label="Giá Gốc" />
                 <div className="col-span-8 sm:col-span-4">
                   <InputValue
                     disabled={isCombination}
@@ -330,7 +349,7 @@ const ProductDrawer = ({ id }) => {
               </div>
 
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                <LabelArea label={"Giá bán"} />
+                <LabelArea label={"Giá Bán Sản Phẩm"} />
                 <div className="col-span-8 sm:col-span-4">
                   <InputValue
                     disabled={isCombination}
@@ -364,7 +383,19 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.stock} />
                 </div>
               </div>
-
+              <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
+                <LabelArea label={"Ngày hết hạn"} />
+                <div className="col-span-8 sm:col-span-4">
+                  <DateInput
+                    disabled={isCombination}
+                    register={register}
+                    label="Date Expried"
+                    required="false"
+                    name="dateExpried"
+                  />
+                  <Error errorName={errors.dateExpried} />
+                </div>
+              </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={"Slug"} />
                 <div className="col-span-8 sm:col-span-4">

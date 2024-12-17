@@ -11,6 +11,9 @@ const SelectStatus = ({ id, order }) => {
   const { setIsUpdate } = useContext(SidebarContext);
   const handleChangeStatus = (id, status) => {
     // return notifyError("This option disabled for this option!");
+    if (order?.status === "Delivered") {
+      return notifyError("Cannot change status when it is already Delivered!");
+    }
     OrderServices.updateOrder(id, { status: status })
       .then((res) => {
         notifySuccess(res.message);
@@ -21,14 +24,14 @@ const SelectStatus = ({ id, order }) => {
 
   return (
     <>
-      <Select
+      <Select disabled={order?.status === "Delivered"}
         onChange={(e) => handleChangeStatus(id, e.target.value)}
         className="h-8"
       >
         <option value="status" defaultValue hidden>
           {order?.status}
         </option>
-        <option defaultValue={order?.status === "Delivered"} value="Delivered">
+        <option defaultValue={order?.status === "Delivered"} value="Delivered" >
           Delivered
         </option>
         <option defaultValue={order?.status === "Pending"} value="Pending">

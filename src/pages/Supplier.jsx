@@ -125,7 +125,7 @@ const Supplier = () => {
                 </Button>
               </div>
 
-              <div className="w-full md:w-48 lg:w-48 xl:w-48  mr-3 mb-3 lg:mb-0">
+              {/* <div className="w-full md:w-48 lg:w-48 xl:w-48  mr-3 mb-3 lg:mb-0">
                 <Button
                   disabled={isCheck.length < 1}
                   onClick={() => handleDeleteMany(isCheck)}
@@ -137,7 +137,7 @@ const Supplier = () => {
 
                   {"Xóa nhà cung cấp"}
                 </Button>
-              </div>
+              </div> */}
 
               <div className="w-full md:w-48 lg:w-48 xl:w-48">
                 <Button onClick={toggleDrawer} className="rounded-md h-12 w-full">

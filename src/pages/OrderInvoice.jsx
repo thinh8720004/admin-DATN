@@ -72,9 +72,9 @@ const OrderInvoice = () => {
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                   Địa chỉ: {globalSetting?.address} <br />
-                  Liên hệ: {globalSetting?.contact} <br />
-                  Email: {globalSetting?.email} <br />
-                  Website: {globalSetting?.website}
+                  Liên hệ: Hoà Hiệp Bắc, Liên Chiểu, Đà Nẵng <br />
+                  {/* Email: {globalSetting?.email} <br /> */}
+                  {/* Website: {globalSetting?.website} */}
                 </p>
               </div>
             </div>
@@ -102,17 +102,16 @@ const OrderInvoice = () => {
                 <span className="text-sm text-gray-500 dark:text-gray-400 block">
                   Khách hàng: {data?.user_info?.name} 
                   <br />
-                  Email: {data?.user_info?.email}{" "}
-                  <br />
+                  {/* Email: {data?.user_info?.email}{" "} */}
                   <span className="ml-2">
                     Liên hệ:{data?.user_info?.contact}
                   </span>
                   <br />
                   Địa chỉ: {data?.user_info?.address?.substring(0, 30)}
                   <br />
-                  Thành phố / thị trấn: {data?.user_info?.city},{" "}
+                  {/* Thành phố / thị trấn: {data?.user_info?.city},{" "}
                   {data?.user_info?.country}, <br />
-                  ZipCode: {data?.user_info?.zipCode}
+                  ZipCode: {data?.user_info?.zipCode} */}
                 </span>
               </div>
             </div>

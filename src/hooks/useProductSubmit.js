@@ -10,7 +10,6 @@ import ProductServices from "@/services/ProductServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
 // import useTranslationValue from "./useTranslationValue";
 import useUtilsFunction from "./useUtilsFunction";
-
 const useProductSubmit = (id) => {
   const location = useLocation();
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
@@ -47,6 +46,9 @@ const useProductSubmit = (id) => {
   const [openModal, setOpenModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [slug, setSlug] = useState("");
+  const [dateExpried, setDateExpried] = useState("");
+  const [type, setType] = useState("");
+
 
   // const { handlerTextTranslateHandler } = useTranslationValue();
   const { getNumber, getNumberTwo } = useUtilsFunction();
@@ -61,7 +63,7 @@ const useProductSubmit = (id) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log('data is data',data)
+    console.log('data form',data)
     try {
       setIsSubmitting(true);
       if (!imageUrl) return notifyError("Image is required!");
@@ -85,13 +87,11 @@ const useProductSubmit = (id) => {
       setSku(data.sku);
       setOriginalPrice(data.originalPrice);
       setSelectedSupplier(data.selectedSupplier);
+      setDateExpried(data.dateExpried);
 
       let supplierUpdate = (Array.isArray(selectedSupplier) && selectedSupplier.length > 0) 
       ? selectedSupplier[0]._id 
       : selectedSupplier._id ?? null;
-
-      console.log('test bien');
-      console.log(supplierUpdate);
 
       const productData = {
         productId: productId,
@@ -117,6 +117,8 @@ const useProductSubmit = (id) => {
           discount: Number(data.originalPrice) - Number(data.price),
         },
         isCombination: true,
+        dateExpried: data.dateExpried,
+        type: data.type
       };
 
       if (updatedId) {
@@ -159,6 +161,7 @@ const useProductSubmit = (id) => {
           setOriginalPrice(res?.prices?.originalPrice);
           setPrice(res?.prices?.price);
           setBarcode(res.barcode);
+          setDateExpried(res?.dateExpried)
           setSku(res.sku);
           setIsUpdate(true);
           setIsBasicComplete(true);
@@ -185,7 +188,7 @@ const useProductSubmit = (id) => {
       closeDrawer();
     }
   };
-
+  
   useEffect(() => {
     if (!isDrawerOpen) {
       setSlug("");
@@ -201,7 +204,8 @@ const useProductSubmit = (id) => {
       setValue("price");
       setValue("barcode");
       setValue("productId");
-
+      setValue("dateExpried");
+      setValue("type");
       setProductId("");
       // setValue('show');
       setImageUrl([]);
@@ -228,7 +232,8 @@ const useProductSubmit = (id) => {
       setIsCombination(false);
       setIsBasicComplete(false);
       setIsSubmitting(false);
-
+      clearErrors("dateExpried")
+      clearErrors("type")
       setUpdatedId();
       return;
     } else {
@@ -261,7 +266,8 @@ const useProductSubmit = (id) => {
             setProductId(res.productId ? res.productId : res._id);
             setBarcode(res.barcode);
             setSku(res.sku);
-
+            setValue("dateExpried",res.dateExpried);
+            setValue("type",res.type);
             res.categories.map((category) => {
               category.name = category?.name;
 
@@ -439,6 +445,7 @@ const useProductSubmit = (id) => {
     onSubmit,
     errors,
     slug,
+    dateExpried,
     openModal,
     setValues,
     imageUrl,
@@ -469,6 +476,7 @@ const useProductSubmit = (id) => {
     handleQuantityPrice,
     handleSelectInlineImage,
     handleGenerateCombination,
+    setType
   };
 };
 

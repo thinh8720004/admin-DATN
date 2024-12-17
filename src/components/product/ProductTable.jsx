@@ -80,7 +80,6 @@ const ProductTable = ({ products, isCheck, setIsCheck }) => {
             <TableCell>
               <span className="text-sm">{product?.category?.name}</span>
             </TableCell>
-
             <TableCell>
               <span className="text-sm font-semibold">
                 {product?.prices?.price?.toLocaleString("vi-VN", {
@@ -96,6 +95,9 @@ const ProductTable = ({ products, isCheck, setIsCheck }) => {
                   ? `${product.description.substring(0, 50)}...`
                   : product?.description}
               </span>
+            </TableCell>
+            <TableCell>
+              <span className="text-sm">{product?.dateExpried}</span>
             </TableCell>
 
             <TableCell>{product?.stock}</TableCell>
